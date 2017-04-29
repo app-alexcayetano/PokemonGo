@@ -20,12 +20,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     
     let mapDistance : CLLocationDistance = 300
     
-    let captureDistance : CLLocationDistance = 150
+    let captureDistance : CLLocationDistance = 1500
     
     var pokemonSpwanTimer:TimeInterval = 5
     
     var pokemons : [Pokemon] = []
     
+    var hasStartedTheMap = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,32 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         //createAndCaughtPokemon(name: "Weedle", with: "weedle")
         
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            print("Estamos listos para salir a cazar Pokemons")
-            self.mapView.delegate = self
-            self.mapView.showsUserLocation = true
-            self.manager.stopUpdatingLocation()
-            
-            Timer.scheduledTimer(withTimeInterval: pokemonSpwanTimer, repeats: true, block: { (timer) in
-                //hay que generar un neuvo prokemon
-                print("generando un nuevo pokemon")
-                
-                if let coordinate = self.manager.location?.coordinate {
-                    /* let annotation = MKPointAnnotation()
-                    annotation.coordinate = coordinate
-                    annotation.coordinate.latitude += (Double(arc4random_uniform(1000)) - 500)/400000
-                    annotation.coordinate.longitude += (Double(arc4random_uniform(1000)) - 500)/400000 */
-                    
-                    let randomPos = Int(arc4random_uniform(UInt32(self.pokemons.count)))
-                    let pokemon = self.pokemons[randomPos]
-                    
-                    let annotation = PokemonAnnotation(coordinate: coordinate, pokemon: pokemon)
-                    annotation.coordinate.latitude += (Double(arc4random_uniform(1000)) - 500)/400000
-                    annotation.coordinate.longitude += (Double(arc4random_uniform(1000)) - 500)/400000
-                    self.mapView.addAnnotation(annotation)
-                }
-                
-            })
-            
+            setupMap()
         }else {
             self.manager.requestWhenInUseAuthorization() //Pide solo cuando la app esta en uso
         }
@@ -92,7 +68,49 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             self.manager.stopUpdatingLocation()
         }
         
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+           setupMap()
+        }
+    }
+    
+    
+    func setupMap(){
         
+        if !self.hasStartedTheMap {
+            
+            self.hasStartedTheMap = true
+        
+            print("Estamos listos para salir a cazar Pokemons")
+            self.mapView.delegate = self
+            self.mapView.showsUserLocation = true
+            self.manager.stopUpdatingLocation()
+            
+            Timer.scheduledTimer(withTimeInterval: pokemonSpwanTimer, repeats: true, block: { (timer) in
+                //hay que generar un neuvo prokemon
+                print("generando un nuevo pokemon")
+                
+                if let coordinate = self.manager.location?.coordinate {
+                    /* let annotation = MKPointAnnotation()
+                     annotation.coordinate = coordinate
+                     annotation.coordinate.latitude += (Double(arc4random_uniform(1000)) - 500)/400000
+                     annotation.coordinate.longitude += (Double(arc4random_uniform(1000)) - 500)/400000 */
+                    
+                    let randomPos = Int(arc4random_uniform(UInt32(self.pokemons.count)))
+                    let pokemon = self.pokemons[randomPos]
+                    
+                    let annotation = PokemonAnnotation(coordinate: coordinate, pokemon: pokemon)
+                    annotation.coordinate.latitude += (Double(arc4random_uniform(1000)) - 500)/400000
+                    annotation.coordinate.longitude += (Double(arc4random_uniform(1000)) - 500)/400000
+                    self.mapView.addAnnotation(annotation)
+                }
+                
+            })
+            
+        }
+
     }
     
     
@@ -133,8 +151,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         if let coordinate = self.manager.location?.coordinate {
             if MKMapRectContainsPoint(mapView.visibleMapRect, MKMapPointForCoordinate(coordinate)){
                 print("Pokemons captura el pokemon")
+                let vc = BattleViewController()
+                vc.pokemon = (view.annotation! as! PokemonAnnotation).pokemon
+                
+                self.mapView.removeAnnotation(view.annotation!)
+                
+                self.present(vc, animated: true, completion: nil)
+                
             } else {
                 print("Demasiado lejos para cazar ese Pokemon")
+                let pokemon = ((view.annotation) as! PokemonAnnotation).pokemon
+                let alertController = UIAlertController(title: "Estas demasiado lejos", message: "Acercate a ese \(pokemon.name!)", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+                
             }
         }
         

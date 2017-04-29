@@ -17,6 +17,8 @@
 		FA952A4A1EB2EB92001581E0 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952A491EB2EB92001581E0 /* CoreDataHelper.swift */; };
 		FA952A4C1EB34F96001581E0 /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952A4B1EB34F96001581E0 /* PokemonTableViewCell.swift */; };
 		FA952A4E1EB3559B001581E0 /* PokemonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952A4D1EB3559B001581E0 /* PokemonAnnotation.swift */; };
+		FA952A501EB42B18001581E0 /* BatleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952A4F1EB42B18001581E0 /* BatleScene.swift */; };
+		FA952A521EB42B84001581E0 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952A511EB42B84001581E0 /* BattleViewController.swift */; };
 		FADB450D1EB06B6E0074B31D /* PokedexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB450C1EB06B6E0074B31D /* PokedexViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		FA952A491EB2EB92001581E0 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataHelper.swift; path = ../CoreDataHelper.swift; sourceTree = "<group>"; };
 		FA952A4B1EB34F96001581E0 /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
 		FA952A4D1EB3559B001581E0 /* PokemonAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonAnnotation.swift; sourceTree = "<group>"; };
+		FA952A4F1EB42B18001581E0 /* BatleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BatleScene.swift; path = ../BatleScene.swift; sourceTree = "<group>"; };
+		FA952A511EB42B84001581E0 /* BattleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
 		FADB450C1EB06B6E0074B31D /* PokedexViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokedexViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +80,8 @@
 		FA7AAD651EAE8600003A86D3 /* PokemonGo */ = {
 			isa = PBXGroup;
 			children = (
+				FA952A4F1EB42B18001581E0 /* BatleScene.swift */,
+				FA952A511EB42B84001581E0 /* BattleViewController.swift */,
 				FA952A491EB2EB92001581E0 /* CoreDataHelper.swift */,
 				FA7AAD661EAE8600003A86D3 /* AppDelegate.swift */,
 				FA7AAD681EAE8600003A86D3 /* ViewController.swift */,
@@ -165,10 +171,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA952A4A1EB2EB92001581E0 /* CoreDataHelper.swift in Sources */,
+				FA952A501EB42B18001581E0 /* BatleScene.swift in Sources */,
 				FA7AAD691EAE8600003A86D3 /* ViewController.swift in Sources */,
 				FA952A4E1EB3559B001581E0 /* PokemonAnnotation.swift in Sources */,
 				FADB450D1EB06B6E0074B31D /* PokedexViewController.swift in Sources */,
 				FA952A4C1EB34F96001581E0 /* PokemonTableViewCell.swift in Sources */,
+				FA952A521EB42B84001581E0 /* BattleViewController.swift in Sources */,
 				FA7AAD671EAE8600003A86D3 /* AppDelegate.swift in Sources */,
 				FA7AAD6F1EAE8600003A86D3 /* PokemonGo.xcdatamodeld in Sources */,
 			);
